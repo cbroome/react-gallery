@@ -3,7 +3,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/cbroome"
   },
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Simple Gallery for React",
   "scripts": {
     "rollup": "rollup -c",
@@ -37,6 +37,7 @@
   ],
   "types": "dist/index.d.ts",
   "dependencies": {
+    "react-router": "^6.2.1",
     "styled-components": "^5.3.3"
   }
 }
