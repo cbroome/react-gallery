@@ -1,9 +1,9 @@
 import React from "react";
 
-interface FullViewProps {
+interface IFullView {
   clickThroughLink?: string;
 }
 
-export function FullView({ clickThroughLink }: FullViewProps) {
-  return <></>;
+export function FullView({ clickThroughLink }: IFullView) {
+  return <>Full View!</>;
 }
