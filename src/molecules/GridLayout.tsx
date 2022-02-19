@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Thumbnail } from "../atoms";
 import styled from "styled-components";
+import { Preview } from ".";
+import { CloseableView } from "./CloseableView";
 
 interface IGridLayout {
-  items: (IVideo | IImage)[];
+  items: IItem[];
 }
 
 const Grid = styled.div`
@@ -17,23 +19,35 @@ const GridCell = styled.div`
   border-radius: 3px;
   padding: 5px;
   margin: 10px;
+  cursor: pointer;
 `;
 
 export function GridLayout({ items }: IGridLayout) {
-  const cellClick = () => {
-    console.log("Layout Cell Clicked!");
+  const [selectedItem, setSelectedItem] = useState<IItem | undefined | null>();
+  const cellClick = (item: IItem) => {
+    return () => {
+      console.log("Layout Cell Clicked!");
+      setSelectedItem(item);
+    };
   };
+
   return (
-    <Grid>
-      {items?.map((item, index) => {
-        // TODO - determine whether is an image
-        const url = item.thumbnail?.url || "";
-        return (
-          <GridCell key={`grid-cell-${index}`} onClick={cellClick}>
-            <Thumbnail url={url} />
-          </GridCell>
-        );
-      })}
-    </Grid>
+    <>
+      {selectedItem && (
+        <CloseableView>
+          <Preview item={selectedItem} setSelectedItem={setSelectedItem} />
+        </CloseableView>
+      )}
+      <Grid>
+        {items?.map((item, index) => {
+          const url = item.thumbnail?.url || "";
+          return (
+            <GridCell key={`grid-cell-${index}`} onClick={cellClick(item)}>
+              <Thumbnail url={url} />
+            </GridCell>
+          );
+        })}
+      </Grid>
+    </>
   );
 }

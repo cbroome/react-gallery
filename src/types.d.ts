@@ -9,16 +9,11 @@ interface IItem {
   alt?: string;
   description?: string;
   allowDirectLink?: boolean;
-}
-
-interface IVideo extends IItem {
+  type: "image" | "video";
   url: string;
-}
-
-interface IImage extends IItem {
-  url: string;
+  title: string;
 }
 
 interface IGallery {
-  items: (IVideo | IImage)[];
+  items: IItem[];
 }
