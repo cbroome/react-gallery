@@ -1,4 +1,5 @@
 import React from "react";
+import { SimpleNavMenu } from "../atoms";
 
 interface ICloseableView {
   children: any;
@@ -7,10 +8,9 @@ interface ICloseableView {
 export function CloseableView({ children }: ICloseableView) {
   return (
     <>
-      <div>Close</div>
-      <div>Previous</div>
-      <div>Next</div>
+      <SimpleNavMenu />
       {children}
+      <SimpleNavMenu />
     </>
   );
 }

@@ -1,3 +1,4 @@
 export * from "./Image";
-export * from "./Video";
+export * from "./SimpleNavMenu";
 export * from "./Thumbnail";
+export * from "./Video";
