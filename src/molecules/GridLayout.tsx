@@ -31,23 +31,29 @@ export function GridLayout({ items }: IGridLayout) {
     };
   };
 
+  const closeFunction = () => {
+    setSelectedItem(null);
+  };
+
   return (
     <>
       {selectedItem && (
-        <CloseableView>
+        <CloseableView setItem={setSelectedItem} closeFunction={closeFunction}>
           <Preview item={selectedItem} setSelectedItem={setSelectedItem} />
         </CloseableView>
       )}
-      <Grid>
-        {items?.map((item, index) => {
-          const url = item.thumbnail?.url || "";
-          return (
-            <GridCell key={`grid-cell-${index}`} onClick={cellClick(item)}>
-              <Thumbnail url={url} />
-            </GridCell>
-          );
-        })}
-      </Grid>
+      {!selectedItem && (
+        <Grid>
+          {items?.map((item, index) => {
+            const url = item.thumbnail?.url || "";
+            return (
+              <GridCell key={`grid-cell-${index}`} onClick={cellClick(item)}>
+                <Thumbnail url={url} />
+              </GridCell>
+            );
+          })}
+        </Grid>
+      )}
     </>
   );
 }

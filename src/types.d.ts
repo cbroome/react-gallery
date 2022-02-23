@@ -1,7 +1,3 @@
-interface IThumbnail {
-  url: string;
-}
-
 interface IItem {
   thumbnail?: IThumbnail;
   order?: number;

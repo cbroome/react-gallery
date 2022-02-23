@@ -15,7 +15,7 @@ interface IPreview {
  */
 export function Preview({ item }: IPreview) {
   const actualPreview =
-    item.type == "image" ? <Image url={item.url} /> : <Video />;
+    item.type === "image" ? <Image url={item.url} /> : <Video />;
 
   return (
     <>

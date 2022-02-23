@@ -2,20 +2,35 @@ import React from "react";
 import styled from "styled-components";
 import { Image } from "./Image";
 
+interface IThumbnail {
+  url: string;
+  altText?: string;
+  onClick?: Function;
+}
+
 const ThumbnailWrapper = styled.div`
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 `;
 
-export function Thumbnail({ url }: IThumbnail) {
+/**
+ * Generic wrapper for a Thumbnail component
+ *
+ * @param param0
+ * @returns
+ */
+export function Thumbnail({ url, altText, onClick }: IThumbnail) {
   const thumbnailClick = () => {
     console.log("Thumbnail click!");
+    onClick && onClick();
   };
 
   return (
     <ThumbnailWrapper onClick={thumbnailClick}>
-      <Image url={url} />
+      <Image url={url} altText={altText} />
     </ThumbnailWrapper>
   );
 }

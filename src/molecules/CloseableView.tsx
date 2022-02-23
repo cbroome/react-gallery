@@ -3,14 +3,20 @@ import { SimpleNavMenu } from "../atoms";
 
 interface ICloseableView {
   children: any;
+  setItem: Function;
+  closeFunction: Function;
 }
 
-export function CloseableView({ children }: ICloseableView) {
+export function CloseableView({
+  setItem,
+  closeFunction,
+  children,
+}: ICloseableView) {
   return (
     <>
-      <SimpleNavMenu />
+      <SimpleNavMenu setItem={setItem} closeFunction={closeFunction} />
       {children}
-      <SimpleNavMenu />
+      <SimpleNavMenu setItem={setItem} closeFunction={closeFunction} />
     </>
   );
 }
