@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 interface ISimpleNavMenu {
-  previousItem?: IItem;
-  nextItem?: IItem;
+  setPreviousItem?: TypeReactOnClick;
+  setNextItem?: TypeReactOnClick;
   closeFunction: Function;
   setItem: Function;
 }
@@ -26,30 +26,20 @@ const CloseWrapper = styled.span`
  */
 export function SimpleNavMenu({
   closeFunction,
-  previousItem,
-  nextItem,
-  setItem,
+  setPreviousItem,
+  setNextItem,
 }: ISimpleNavMenu) {
   const close = () => {
-    console.log("Clicked close");
     closeFunction();
-  };
-
-  const previous = () => {
-    console.log("Clicked previous");
-    setItem(previousItem);
-  };
-
-  const next = () => {
-    console.log("Clicked next");
-    setItem(nextItem);
   };
 
   return (
     <MenuWrapper className="rg-simple-nav-menu">
-      <div onClick={previous}>Previous</div>
+      <div>
+        {setPreviousItem && <div onClick={setPreviousItem}>Previous</div>}
+      </div>
       <CloseWrapper onClick={close}>Close</CloseWrapper>
-      <div onClick={next}>Next</div>
+      <div>{setNextItem && <div onClick={setNextItem}>Next</div>}</div>
     </MenuWrapper>
   );
 }

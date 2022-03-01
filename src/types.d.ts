@@ -6,10 +6,13 @@ interface IItem {
   description?: string;
   allowDirectLink?: boolean;
   type: "image" | "video";
-  url: string;
+  resourceUrl: string;
   title: string;
+  externalLink: string;
 }
 
 interface IGallery {
   items: IItem[];
 }
+
+type TypeReactOnClick = undefined | ((event: React.MouseEvent) => void);
