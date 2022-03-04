@@ -9,6 +9,7 @@ interface IItem {
   resourceUrl: string;
   title: string;
   externalLink: string;
+  callback?: Function;
 }
 
 interface IGallery {

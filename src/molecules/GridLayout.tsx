@@ -30,33 +30,62 @@ export function GridLayout({ items }: IGridLayout) {
   >();
   const sortedItems = sortBy(items, "order");
 
+  /**
+   * Open a new gallery itme
+   *
+   * @param item
+   */
+  const selectionHandler = (item: IItem) => {
+    const navItem = ItemNav.factory(sortedItems, item);
+    setSelectedItem(navItem);
+    if (item.callback) {
+      item.callback();
+    }
+  };
+
+  /**
+   * Select an Item directly from the grid
+   *
+   * @param item
+   * @returns
+   */
   const cellClick = (item: IItem) => {
     return () => {
-      const navItem = ItemNav.factory(sortedItems, item);
-      setSelectedItem(navItem);
+      selectionHandler(item);
     };
   };
 
+  /**
+   * If the selected item has a next item, select
+   *
+   * @returns
+   */
   const next = (): TypeReactOnClick => {
     const nextItem = selectedItem?.getNextItem();
     if (nextItem) {
       return (event: React.MouseEvent) => {
-        const navItem = ItemNav.factory(sortedItems, nextItem);
-        setSelectedItem(navItem);
+        selectionHandler(nextItem);
       };
     }
   };
 
+  /**
+   * If the selected item has a previous item, select
+   *
+   * @returns
+   */
   const previous = (): TypeReactOnClick => {
     const previousItem = selectedItem?.getPreviousItem();
     if (previousItem) {
       return (event: React.MouseEvent) => {
-        const navItem = ItemNav.factory(sortedItems, previousItem);
-        setSelectedItem(navItem);
+        selectionHandler(previousItem);
       };
     }
   };
 
+  /**
+   * Close the previewed item and display the grid
+   */
   const closeFunction = () => {
     setSelectedItem(null);
   };
