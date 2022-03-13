@@ -1,21 +1,28 @@
-import React from "react";
-import styled from "styled-components";
-import { isEmpty } from "lodash";
-import { GridLayout } from "../molecules";
+import React from 'react';
+import styled from 'styled-components';
+import { isEmpty } from 'lodash';
+import { GridLayout } from '../molecules';
+import { GalleryState } from '../state/gallery';
 
 const GalleryWrapper = styled.div``;
 
 export function Gallery({ items }: IGallery) {
-  if (isEmpty(items)) {
-    console.error("Pass in a populated array for the Gallery component");
-    throw Error("Error! trying to initialize React Gallery without items");
-  }
+    if (isEmpty(items)) {
+        console.error('Pass in a populated array for the Gallery component');
+        throw Error('Error! trying to initialize React Gallery without items');
+    }
 
-  return (
-    <>
-      <GalleryWrapper className="react-gallery-wrapper">
-        <GridLayout items={items} />
-      </GalleryWrapper>
-    </>
-  );
+    const statePackage = {
+        items,
+    };
+
+    return (
+        <>
+            <GalleryState.Provider initialState={statePackage}>
+                <GalleryWrapper className="react-gallery-wrapper">
+                    <GridLayout items={items} />
+                </GalleryWrapper>
+            </GalleryState.Provider>
+        </>
+    );
 }

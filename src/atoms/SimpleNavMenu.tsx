@@ -1,20 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-
-interface ISimpleNavMenu {
-  setPreviousItem?: TypeReactOnClick;
-  setNextItem?: TypeReactOnClick;
-  closeFunction: Function;
-  setItem: Function;
-}
+import React from 'react';
+import styled from 'styled-components';
+import { GalleryState } from '../state';
 
 const MenuWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 `;
 
 const CloseWrapper = styled.span`
-  cursor: pointer;
+    cursor: pointer;
 `;
 
 /**
@@ -24,22 +18,24 @@ const CloseWrapper = styled.span`
  * @param param0
  * @returns
  */
-export function SimpleNavMenu({
-  closeFunction,
-  setPreviousItem,
-  setNextItem,
-}: ISimpleNavMenu) {
-  const close = () => {
-    closeFunction();
-  };
+export function SimpleNavMenu() {
+    const { nextItem, prevItem, onClickHandler, clearActiveItem } =
+        GalleryState.useContainer();
+    const close = () => {
+        clearActiveItem();
+    };
 
-  return (
-    <MenuWrapper className="rg-simple-nav-menu">
-      <div>
-        {setPreviousItem && <div onClick={setPreviousItem}>Previous</div>}
-      </div>
-      <CloseWrapper onClick={close}>Close</CloseWrapper>
-      <div>{setNextItem && <div onClick={setNextItem}>Next</div>}</div>
-    </MenuWrapper>
-  );
+    return (
+        <MenuWrapper className="rg-simple-nav-menu">
+            <div>
+                {prevItem && (
+                    <div onClick={onClickHandler(prevItem)}>Previous</div>
+                )}
+            </div>
+            <CloseWrapper onClick={close}>Close</CloseWrapper>
+            <div>
+                {nextItem && <div onClick={onClickHandler(nextItem)}>Next</div>}
+            </div>
+        </MenuWrapper>
+    );
 }

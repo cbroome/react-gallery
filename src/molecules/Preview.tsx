@@ -1,10 +1,6 @@
-import React from "react";
-import { Header1, Image, Video } from "../atoms";
-import { ItemNav } from "../lib";
-
-interface IPreview {
-  itemNav: ItemNav;
-}
+import React from 'react';
+import { Header1, Image, Video } from '../atoms';
+import { GalleryState } from '../state';
 
 /**
  * Show a full-sized preview of the gallery item. This will
@@ -13,26 +9,30 @@ interface IPreview {
  * @param param0
  * @returns
  */
-export function Preview({ itemNav }: IPreview) {
-  let url: string | undefined;
-  let target: string = "_self";
-  const item = itemNav.selectedItem;
-  if (item?.allowDirectLink) {
-    url = item.externalLink || item.resourceUrl;
-    // Open images in a new window
-    target = "_blank";
-  }
+export function Preview() {
+    const { activeItem } = GalleryState.useContainer();
+    let url: string = '';
+    let target: string = '_self';
+    if (activeItem?.allowDirectLink) {
+        url = activeItem.externalLink || activeItem.resourceUrl;
+        // Open images in a new window
+        target = '_blank';
+    }
 
-  const actualPreview =
-    item.type === "image" ? <Image url={item.resourceUrl} /> : <Video />;
+    const actualPreview =
+        activeItem!!.type === 'image' ? <Image url={url} /> : <Video />;
 
-  return (
-    <div className="rg-preview">
-      <Header1>{item.title}</Header1>
-      <a href={url} target={target}>
-        {actualPreview}
-      </a>
-      <div>{item.description}</div>
-    </div>
-  );
+    return (
+        <div className="rg-preview">
+            {activeItem && (
+                <>
+                    <Header1>{activeItem!!.title}</Header1>
+                    <a href={url} target={target}>
+                        {actualPreview}
+                    </a>
+                    <div>{activeItem!!.description}</div>
+                </>
+            )}
+        </div>
+    );
 }
