@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import styled from 'styled-components';
 import { GalleryState } from '../state';
 
@@ -6,55 +6,69 @@ interface IOverlayNavView {
     children: ReactNode;
 }
 
-const Overlay = styled.div`
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: space-around;
+const Wrapper = styled.div`
+    position: relative;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 10% max-content 15%;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
 `;
 
 const Underlay = styled.div`
-    height: 100%;
-    width: 100%;
+    grid-area: 1 / 1 / 2 / 4;
 `;
 
 const NavColumn = styled.div`
     height: 100%;
-    width: 12%;
-    text-align: center;
-    vertical-align: middle;
-    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    :hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
 `;
 
 const Control = styled.div`
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
     font-size: 2em;
+    font-weight: bold;
+`;
+
+const NavColumnLeft = styled(NavColumn)`
+    justify-content: left;
+    grid-area: 1 / 1 / 2 / 2;
+`;
+
+const NavColumnRight = styled(NavColumn)`
+    grid-area: 1 / 3 / 2 / 4;
+    justify-content: right;
 `;
 
 export function OverlayNavView({ children }: IOverlayNavView) {
     const { nextItem, prevItem, onClickHandler } = GalleryState.useContainer();
 
     return (
-        <>
-            <Overlay>
-                {prevItem && (
-                    <NavColumn>
-                        <Control onClick={onClickHandler(prevItem)}>
-                            &gt;
-                        </Control>
-                    </NavColumn>
-                )}
-                <Underlay>{children}</Underlay>
-                {nextItem && (
-                    <NavColumn>
-                        <Control onClick={onClickHandler(nextItem)}>
-                            &lt;
-                        </Control>
-                    </NavColumn>
-                )}
-            </Overlay>
-        </>
+        <Wrapper className="rg-overlay-nav-view">
+            <Underlay className="rg-underlay">{children}</Underlay>
+
+            {prevItem && (
+                <NavColumnLeft
+                    className="rg-nav-column rg-left"
+                    onClick={onClickHandler(prevItem)}
+                >
+                    <Control>&lt;</Control>
+                </NavColumnLeft>
+            )}
+
+            {nextItem && (
+                <NavColumnRight
+                    className="rg-nav-column rg-right"
+                    onClick={onClickHandler(nextItem)}
+                >
+                    <Control>&gt;</Control>
+                </NavColumnRight>
+            )}
+        </Wrapper>
     );
 }

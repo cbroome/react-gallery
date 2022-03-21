@@ -7,14 +7,19 @@ interface IGalleryStateProps {
     selectedItem?: number;
 }
 
+/**
+ * Maintain the currently selected items
+ *
+ * @param initialState
+ * @returns
+ */
 export function useGallery(initialState: IGalleryStateProps = {}) {
+    // TODO - support logic for having an initial selected Item
     const { items, selectedItem } = initialState;
 
     const [activeItem, setActiveItem] = useState<IItem | undefined>();
     const [nextItem, setNextItem] = useState<IItem | undefined>();
     const [prevItem, setPrevItem] = useState<IItem | undefined>();
-    const [nextItemFunc, setNextItemFunc] = useState<TypeReactOnClick>();
-    const [prevItemFunc, setPrevItemFunc] = useState<TypeReactOnClick>();
     const clearActiveItem = () => {
         setActiveItem(undefined);
     };

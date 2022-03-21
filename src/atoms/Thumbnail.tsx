@@ -1,31 +1,31 @@
-import React from "react";
-import styled from "styled-components";
-import { Image } from "./Image";
+import React from 'react';
+import styled from 'styled-components';
+import { Image } from './Image';
 
 interface IThumbnail {
-  url: string;
-  height: number;
-  width: number;
-  altText?: string;
-  onClick?: Function;
+    url: string;
+    height: number;
+    width: number;
+    altText?: string;
+    onClick?: Function;
 }
 
 interface IThumbnailWrapper {
-  height?: number;
-  width?: number;
+    height?: number;
+    width?: number;
 }
 
 const ThumbnailWrapper = styled.div<IThumbnailWrapper>`
-  height: ${(props) => props.height || "100%"};
-  width: ${(props) => props.width || "100%"};
-  cursor: pointer;
+    height: ${(props) => props.height || '100%'};
+    width: ${(props) => props.width || '100%'};
+    cursor: pointer;
 
-  img {
-    width: 100%;
-    height: 100%;
-    margin: 0 auto 0 auto;
-    object-fit: contain;
-  }
+    img {
+        width: 100%;
+        height: 100%;
+        margin: 0 auto 0 auto;
+        object-fit: contain;
+    }
 `;
 
 /**
@@ -35,14 +35,13 @@ const ThumbnailWrapper = styled.div<IThumbnailWrapper>`
  * @returns
  */
 export function Thumbnail({ url, altText, onClick }: IThumbnail) {
-  const thumbnailClick = () => {
-    console.log("Thumbnail click!");
-    onClick && onClick();
-  };
+    const thumbnailClick = () => {
+        onClick && onClick();
+    };
 
-  return (
-    <ThumbnailWrapper onClick={thumbnailClick}>
-      <Image url={url} altText={altText} />
-    </ThumbnailWrapper>
-  );
+    return (
+        <ThumbnailWrapper onClick={thumbnailClick}>
+            <Image url={url} altText={altText} />
+        </ThumbnailWrapper>
+    );
 }

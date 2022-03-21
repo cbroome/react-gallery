@@ -3,7 +3,7 @@
     "publishConfig": {
         "registry": "https://npm.pkg.github.com/cbroome"
     },
-    "version": "0.0.20",
+    "version": "0.0.31",
     "description": "Simple Gallery for React",
     "scripts": {
         "rollup": "rollup -c",

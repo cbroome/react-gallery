@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header1, Image, Video } from '../atoms';
+import { Header1, Image, OverlayNavView, Video } from '../atoms';
 import { GalleryState } from '../state';
 
 /**
@@ -26,11 +26,19 @@ export function Preview() {
         <div className="rg-preview">
             {activeItem && (
                 <>
-                    <Header1>{activeItem!!.title}</Header1>
-                    <a href={url} target={target}>
-                        {actualPreview}
-                    </a>
-                    <div>{activeItem!!.description}</div>
+                    <Header1 className="rg-preview-header">
+                        {activeItem!!.title}
+                    </Header1>
+                    <OverlayNavView>
+                        <div className="rg-preview-item">
+                            <a href={url} target={target}>
+                                {actualPreview}
+                            </a>
+                        </div>
+                    </OverlayNavView>
+                    <div className="rg-preview-description">
+                        {activeItem!!.description}
+                    </div>
                 </>
             )}
         </div>
