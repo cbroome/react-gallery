@@ -1,6 +1,16 @@
 import React from 'react';
-import { Header1, Image, OverlayNavView, Video } from '../atoms';
+import styled from 'styled-components';
+import { OverlayNavView } from '.';
+import { Header1, Image, Video } from '../atoms';
 import { GalleryState } from '../state';
+
+const PreviewItem = styled.div`
+    img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+    }
+`;
 
 /**
  * Show a full-sized preview of the gallery item. This will
@@ -30,11 +40,11 @@ export function Preview() {
                         {activeItem!!.title}
                     </Header1>
                     <OverlayNavView>
-                        <div className="rg-preview-item">
+                        <PreviewItem className="rg-preview-item">
                             <a href={url} target={target}>
                                 {actualPreview}
                             </a>
-                        </div>
+                        </PreviewItem>
                     </OverlayNavView>
                     <div className="rg-preview-description">
                         {activeItem!!.description}

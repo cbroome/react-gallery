@@ -3,6 +3,11 @@ import styled from 'styled-components';
 import { GalleryState } from '../state';
 
 interface ICloseableView {
+    /**
+     * Text for the action to leave the preview and return to the
+     * main gallery
+     */
+    returnText?: string;
     children: any;
 }
 
@@ -18,17 +23,22 @@ const Return = styled.div`
  * @param param0
  * @returns
  */
-export function CloseableView({ children }: ICloseableView) {
+export function CloseableView({
+    returnText = 'Return to Gallery',
+    children,
+}: ICloseableView) {
     const { setActiveItem } = GalleryState.useContainer();
     return (
         <div className="rg-closeable-view">
             <Return
                 onClick={() => {
+                    // By clearing out the active item, the main
+                    // gallery should render
                     setActiveItem(undefined);
                 }}
             >
                 <span className="rg-pointer">&laquo;</span>
-                <span className="rg-return-text">Return to Gallery</span>
+                <span className="rg-return-text">{returnText}</span>
             </Return>
             <ItemWrapper className="rg-item-wrapper">{children}</ItemWrapper>
         </div>
