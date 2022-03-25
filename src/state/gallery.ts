@@ -4,7 +4,7 @@ import { createContainer } from 'unstated-next';
 
 interface IGalleryStateProps {
     items?: IItem[];
-    selectedItem?: number;
+    selectedId?: string;
 }
 
 /**
@@ -15,9 +15,16 @@ interface IGalleryStateProps {
  */
 export function useGallery(initialState: IGalleryStateProps = {}) {
     // TODO - support logic for having an initial selected Item
-    const { items, selectedItem } = initialState;
+    const { items, selectedId } = initialState;
 
-    const [activeItem, setActiveItem] = useState<IItem | undefined>();
+    let selectedItem: IItem | undefined;
+    if (selectedId) {
+        selectedItem = items?.filter((item) => item.id === selectedId)[0];
+    }
+
+    const [activeItem, setActiveItem] = useState<IItem | undefined>(
+        selectedItem
+    );
     const [nextItem, setNextItem] = useState<IItem | undefined>();
     const [prevItem, setPrevItem] = useState<IItem | undefined>();
     const clearActiveItem = () => {
@@ -34,6 +41,10 @@ export function useGallery(initialState: IGalleryStateProps = {}) {
 
             setNextItem(nextItem);
             setPrevItem(prevItem);
+
+            if (activeItem.callback) {
+                activeItem.callback(activeItem);
+            }
         }
     }, [activeItem, sortedItems]);
 

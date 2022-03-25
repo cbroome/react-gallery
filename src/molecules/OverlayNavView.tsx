@@ -44,7 +44,7 @@ const NavColumnLeft = styled(NavColumn)`
     :hover {
         opacity: 1;
         background: linear-gradient(
-            90deg,
+            270deg,
             rgba(234, 243, 242, 0) 0%,
             rgba(255, 255, 255, 1) 100%
         );
@@ -58,7 +58,7 @@ const NavColumnRight = styled(NavColumn)`
     :hover {
         opacity: 1;
         background: linear-gradient(
-            270deg,
+            90deg,
             rgba(234, 243, 242, 0) 0%,
             rgba(255, 255, 255, 1) 100%
         );

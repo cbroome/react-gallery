@@ -6,7 +6,7 @@ import { GalleryState } from '../state/gallery';
 
 const GalleryWrapper = styled.div``;
 
-export function Gallery({ items }: IGallery) {
+export function Gallery({ items, selectedId }: IGallery) {
     if (isEmpty(items)) {
         console.error('Pass in a populated array for the Gallery component');
         throw Error('Error! trying to initialize React Gallery without items');
@@ -14,6 +14,7 @@ export function Gallery({ items }: IGallery) {
 
     const statePackage = {
         items,
+        selectedId,
     };
 
     return (

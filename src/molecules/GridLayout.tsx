@@ -11,16 +11,22 @@ interface IGridLayout {
 
 const Grid = styled.div`
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 `;
 
 const GridCell = styled.div`
-    height: 150px;
-    width: 150px;
+    height: 250px;
+    width: 200px;
     border: 1px solid;
     border-radius: 3px;
     padding: 5px;
     margin: 10px;
     cursor: pointer;
+
+    :hover {
+        background: rgb(100, 100, 100, 0.2);
+    }
 `;
 
 export function GridLayout({ items }: IGridLayout) {
