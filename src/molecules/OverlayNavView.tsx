@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { GalleryState } from '../state';
 import { Arrow } from '../atoms';

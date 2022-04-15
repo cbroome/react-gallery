@@ -27,14 +27,14 @@ export function CloseableView({
     returnText = 'Return to Gallery',
     children,
 }: ICloseableView) {
-    const { setActiveItem } = GalleryState.useContainer();
+    const { returnToGallery } = GalleryState.useContainer();
     return (
         <div className="rg-closeable-view">
             <Return
                 onClick={() => {
                     // By clearing out the active item, the main
                     // gallery should render
-                    setActiveItem(undefined);
+                    returnToGallery();
                 }}
             >
                 <span className="rg-pointer">&laquo;</span>

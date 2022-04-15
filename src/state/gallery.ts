@@ -1,10 +1,11 @@
 import { sortBy } from 'lodash';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { createContainer } from 'unstated-next';
 
 interface IGalleryStateProps {
     items?: IItem[];
     selectedId?: string;
+    returnToGalleryCallback?: Function;
 }
 
 /**
@@ -15,7 +16,7 @@ interface IGalleryStateProps {
  */
 export function useGallery(initialState: IGalleryStateProps = {}) {
     // TODO - support logic for having an initial selected Item
-    const { items, selectedId } = initialState;
+    const { items, selectedId, returnToGalleryCallback } = initialState;
 
     let selectedItem: IItem | undefined;
     if (selectedId) {
@@ -54,6 +55,13 @@ export function useGallery(initialState: IGalleryStateProps = {}) {
         };
     };
 
+    const returnToGallery = useCallback(() => {
+        setActiveItem(undefined);
+        if (returnToGalleryCallback) {
+            returnToGalleryCallback();
+        }
+    }, [setActiveItem, returnToGalleryCallback]);
+
     return {
         activeItem,
         setActiveItem,
@@ -62,6 +70,7 @@ export function useGallery(initialState: IGalleryStateProps = {}) {
         prevItem,
         clearActiveItem,
         onClickHandler,
+        returnToGallery,
     };
 }
 
