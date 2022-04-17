@@ -15,9 +15,9 @@ export function usePage(
 
     const totalPages = Math.ceil(allItems?.length / itemsPerPage);
     const itemCount = items?.length || 0;
-    const start = currentPage * itemCount;
+    const startIndex = currentPage * itemCount;
 
-    const currentItems = items?.slice(itemCount, itemsPerPage);
+    const currentItems = items?.slice(startIndex, itemsPerPage);
 
     return { currentPage, setCurrentPage, currentItems, totalPages };
 }

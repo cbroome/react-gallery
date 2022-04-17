@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { isEmpty } from 'lodash';
 import { GridLayout } from '../molecules';
-import { GalleryState } from '../state/gallery';
+import { GalleryState } from '../state/GalleryState';
 
 const GalleryWrapper = styled.div``;
 
