@@ -1,6 +1,7 @@
+import { isEmpty } from 'lodash';
 import React from 'react';
 import { PageNav } from '../atoms';
-import { PageState, usePage } from '../state';
+import { PageState } from '../state';
 import { Gallery } from './Gallery';
 
 interface IPagedGallery extends IGallery {
@@ -21,12 +22,18 @@ function StatefullGallery({
 }: IStatefulGallery) {
     const { currentItems } = PageState.useContainer();
 
+    console.log('current items', currentItems);
+
     return (
-        <Gallery
-            items={currentItems!!}
-            selectedId={selectedId}
-            returnToGalleryCallback={returnToGalleryCallback}
-        />
+        <>
+            {!isEmpty(currentItems) && (
+                <Gallery
+                    items={currentItems}
+                    selectedId={selectedId}
+                    returnToGalleryCallback={returnToGalleryCallback}
+                />
+            )}
+        </>
     );
 }
 

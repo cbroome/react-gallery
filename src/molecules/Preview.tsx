@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { OverlayNavView } from '.';
+import { OverlayNavView } from './OverlayNavView';
 import { Header1, Image, Video } from '../atoms';
 import { GalleryState } from '../state';
 

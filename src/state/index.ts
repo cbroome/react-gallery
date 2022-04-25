@@ -1,2 +1,2 @@
-export * from './gallery';
-export * from './page';
+export * from './GalleryState';
+export * from './PageState';
