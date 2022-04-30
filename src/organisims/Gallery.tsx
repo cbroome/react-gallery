@@ -10,6 +10,7 @@ export function Gallery({
     items,
     selectedId,
     returnToGalleryCallback,
+    showItemNav = true,
 }: IGallery) {
     if (isEmpty(items)) {
         console.error('Pass in a populated array for the Gallery component');
@@ -20,6 +21,7 @@ export function Gallery({
         items,
         selectedId,
         returnToGalleryCallback,
+        showItemNav,
     };
 
     return (

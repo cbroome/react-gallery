@@ -22,8 +22,6 @@ function StatefullGallery({
 }: IStatefulGallery) {
     const { currentItems } = PageState.useContainer();
 
-    console.log('current items', currentItems);
-
     return (
         <>
             {!isEmpty(currentItems) && (
@@ -31,6 +29,7 @@ function StatefullGallery({
                     items={currentItems}
                     selectedId={selectedId}
                     returnToGalleryCallback={returnToGalleryCallback}
+                    showItemNav={false}
                 />
             )}
         </>

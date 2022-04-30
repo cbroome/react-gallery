@@ -20,7 +20,7 @@ const PreviewItem = styled.div`
  * @returns
  */
 export function Preview() {
-    const { activeItem } = GalleryState.useContainer();
+    const { activeItem, showItemNav } = GalleryState.useContainer();
     let url: string = '';
     let target: string = '_self';
     if (activeItem?.allowDirectLink) {
@@ -32,6 +32,14 @@ export function Preview() {
     const actualPreview =
         activeItem!!.type === 'image' ? <Image url={url} /> : <Video />;
 
+    const preview = (
+        <PreviewItem className="rg-preview-item">
+            <a href={url} target={target}>
+                {actualPreview}
+            </a>
+        </PreviewItem>
+    );
+
     return (
         <div className="rg-preview">
             {activeItem && (
@@ -39,13 +47,11 @@ export function Preview() {
                     <Header1 className="rg-preview-header">
                         {activeItem!!.title}
                     </Header1>
-                    <OverlayNavView>
-                        <PreviewItem className="rg-preview-item">
-                            <a href={url} target={target}>
-                                {actualPreview}
-                            </a>
-                        </PreviewItem>
-                    </OverlayNavView>
+
+                    {showItemNav && <OverlayNavView>{preview}</OverlayNavView>}
+
+                    {!showItemNav && preview}
+
                     <div className="rg-preview-description">
                         {activeItem!!.description}
                     </div>

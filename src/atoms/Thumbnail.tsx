@@ -40,7 +40,7 @@ export function Thumbnail({ url, altText, onClick }: IThumbnail) {
     };
 
     return (
-        <ThumbnailWrapper onClick={thumbnailClick}>
+        <ThumbnailWrapper className="rg-thumbnail" onClick={thumbnailClick}>
             <Image url={url} altText={altText} />
         </ThumbnailWrapper>
     );

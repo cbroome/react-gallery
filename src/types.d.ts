@@ -62,6 +62,7 @@ interface IGallery {
     items: IItem[];
     selectedId?: string;
     returnToGalleryCallback?: function;
+    showItemNav: boolean;
 }
 
 type TypeReactOnClick = undefined | ((event: React.MouseEvent) => void);

@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
 interface IImage {
-  url: string;
-  altText?: string;
+    url: string;
+    altText?: string;
 }
 
 export function Image({ url, altText }: IImage) {
-  return (
-    <>
-      <img src={url} alt={altText} />
-    </>
-  );
+    return (
+        <>
+            <img src={url} alt={altText} />
+        </>
+    );
 }

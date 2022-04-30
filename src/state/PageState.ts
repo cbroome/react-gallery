@@ -16,16 +16,11 @@ export function usePage(
     const [totalPages, setTotalPages] = useState(0);
 
     useMemo(() => {
-        console.log('items', items);
         const itemsLength = items.length || 0;
         const totalPages = Math.ceil(itemsLength / itemsPerPage);
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = Number(startIndex) + Number(itemsPerPage);
-        console.log(
-            `startIndex: ${startIndex}; endIndex: ${endIndex}; itemsPerPage: ${itemsPerPage}; itemsLength: ${itemsLength}`
-        );
         const currentItems = items.slice(startIndex, endIndex);
-        console.log('setting current items', currentItems);
         setCurrentItems(currentItems);
         setTotalPages(totalPages);
     }, [currentPage, items, itemsPerPage]);

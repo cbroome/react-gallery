@@ -6,6 +6,7 @@ interface IGalleryStateProps {
     items?: IItem[];
     selectedId?: string;
     returnToGalleryCallback?: Function;
+    showItemNav: boolean;
 }
 
 /**
@@ -14,9 +15,12 @@ interface IGalleryStateProps {
  * @param initialState
  * @returns
  */
-export function useGallery(initialState: IGalleryStateProps = {}) {
+export function useGallery(
+    initialState: IGalleryStateProps = { showItemNav: true }
+) {
     // TODO - support logic for having an initial selected Item
-    const { items, selectedId, returnToGalleryCallback } = initialState;
+    const { items, selectedId, returnToGalleryCallback, showItemNav } =
+        initialState;
 
     let selectedItem: IItem | undefined;
     if (selectedId) {
@@ -71,6 +75,7 @@ export function useGallery(initialState: IGalleryStateProps = {}) {
         clearActiveItem,
         onClickHandler,
         returnToGallery,
+        showItemNav,
     };
 }
 

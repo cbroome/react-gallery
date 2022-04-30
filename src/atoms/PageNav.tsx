@@ -8,10 +8,17 @@ interface IPagedLink {
 
 const PagedLink = styled.li<IPagedLink>`
     padding: 10px 5px;
+    margin: 0 5px 0;
+    cursor: pointer;
     ${(props) => props.isCurrentPage && 'border: 1px solid;'}
     :hover {
         background: #eee;
     }
+`;
+
+const PagedList = styled.ul`
+    list-style: none;
+    display: flex;
 `;
 
 export function PageNav() {
@@ -40,5 +47,11 @@ export function PageNav() {
             </PagedLink>
         );
     }
-    return <>{totalPages && <ul>{pageList}</ul>}</>;
+    return (
+        <>
+            {totalPages && (
+                <PagedList className="rg-paged-list">{pageList}</PagedList>
+            )}
+        </>
+    );
 }
