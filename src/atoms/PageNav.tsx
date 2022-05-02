@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { PageState } from '../state';
+import { GalleryState } from '../state';
 
 interface IPagedLink {
     isCurrentPage: boolean;
@@ -22,8 +22,11 @@ const PagedList = styled.ul`
 `;
 
 export function PageNav() {
-    const { totalPages, setCurrentPage, currentPage } =
-        PageState.useContainer();
+    const {
+        totalPages,
+        setCurrentPage,
+        currentPage,
+    } = GalleryState.useContainer();
 
     const pageList = [];
 

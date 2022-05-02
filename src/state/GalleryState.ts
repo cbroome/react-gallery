@@ -1,4 +1,4 @@
-import { sortBy } from 'lodash';
+import { orderBy, sortBy } from 'lodash';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { createContainer } from 'unstated-next';
 
@@ -7,6 +7,9 @@ interface IGalleryStateProps {
     selectedId?: string;
     returnToGalleryCallback?: Function;
     showItemNav: boolean;
+    itemsPerPage: number;
+    usePaging: boolean;
+    sortOrder: 'asc' | 'desc';
 }
 
 /**
@@ -16,11 +19,23 @@ interface IGalleryStateProps {
  * @returns
  */
 export function useGallery(
-    initialState: IGalleryStateProps = { showItemNav: true }
+    initialState: IGalleryStateProps = {
+        showItemNav: true,
+        sortOrder: 'asc',
+        itemsPerPage: 10,
+        usePaging: false,
+    }
 ) {
     // TODO - support logic for having an initial selected Item
-    const { items, selectedId, returnToGalleryCallback, showItemNav } =
-        initialState;
+    const {
+        items,
+        selectedId,
+        returnToGalleryCallback,
+        showItemNav,
+        itemsPerPage,
+        sortOrder,
+        usePaging,
+    } = initialState;
 
     let selectedItem: IItem | undefined;
     if (selectedId) {
@@ -35,10 +50,15 @@ export function useGallery(
     const clearActiveItem = () => {
         setActiveItem(undefined);
     };
+    const [currentPage, setCurrentPage] = useState(1);
+    const [displayedItems, setDisplayedItems] = useState<IItem[]>([]);
+    const [totalPages, setTotalPages] = useState(0);
 
-    const sortedItems = useMemo(() => sortBy(items, 'order'), [items]);
+    const sortedItems = useMemo(() => orderBy(items, ['order'], [sortOrder]), [
+        items,
+    ]);
 
-    useEffect(() => {
+    useMemo(() => {
         if (activeItem) {
             const activeIndex = sortedItems.indexOf(activeItem);
             const nextItem = sortedItems[activeIndex + 1];
@@ -52,6 +72,21 @@ export function useGallery(
             }
         }
     }, [activeItem, sortedItems]);
+
+    useMemo(() => {
+        let currentItems: IItem[] = [];
+        if (usePaging) {
+            const itemsLength = sortedItems.length || 0;
+            const totalPages = Math.ceil(itemsLength / itemsPerPage);
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Number(startIndex) + Number(itemsPerPage);
+            currentItems = sortedItems.slice(startIndex, endIndex);
+            setTotalPages(totalPages);
+        } else {
+            currentItems = sortedItems;
+        }
+        setDisplayedItems(currentItems);
+    }, [currentPage, sortedItems, itemsPerPage, usePaging]);
 
     const onClickHandler = (item: IItem): TypeReactOnClick => {
         return () => {
@@ -76,6 +111,10 @@ export function useGallery(
         onClickHandler,
         returnToGallery,
         showItemNav,
+        displayedItems,
+        setCurrentPage,
+        totalPages,
+        currentPage,
     };
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Thumbnail } from '../atoms';
+import { PageNav, Thumbnail } from '../atoms';
 import styled from 'styled-components';
 import { Preview } from './Preview';
 import { CloseableView } from './CloseableView';
@@ -30,8 +30,11 @@ const GridCell = styled.div`
 `;
 
 export function GridLayout({ items }: IGridLayout) {
-    const { activeItem, sortedItems, setActiveItem } =
-        GalleryState.useContainer();
+    const {
+        activeItem,
+        setActiveItem,
+        displayedItems,
+    } = GalleryState.useContainer();
 
     const selectItemFunc = (item: IItem) => {
         return () => {
@@ -47,25 +50,29 @@ export function GridLayout({ items }: IGridLayout) {
                 </CloseableView>
             )}
             {!activeItem && (
-                <Grid className="rg-grid">
-                    {sortedItems?.map((item, index) => {
-                        const url = item.thumbnail?.url || '';
-                        return (
-                            <GridCell
-                                key={`grid-cell-${index}`}
-                                title={item.title}
-                                className="rg-grid-cell"
-                            >
-                                <Thumbnail
-                                    url={url}
-                                    height={150}
-                                    width={150}
-                                    onClick={selectItemFunc(item)}
-                                />
-                            </GridCell>
-                        );
-                    })}
-                </Grid>
+                <>
+                    <PageNav />
+
+                    <Grid className="rg-grid">
+                        {displayedItems?.map((item, index) => {
+                            const url = item.thumbnail?.url || '';
+                            return (
+                                <GridCell
+                                    key={`grid-cell-${index}`}
+                                    title={item.title}
+                                    className="rg-grid-cell"
+                                >
+                                    <Thumbnail
+                                        url={url}
+                                        height={150}
+                                        width={150}
+                                        onClick={selectItemFunc(item)}
+                                    />
+                                </GridCell>
+                            );
+                        })}
+                    </Grid>
+                </>
             )}
         </>
     );

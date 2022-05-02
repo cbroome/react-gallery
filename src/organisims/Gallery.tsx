@@ -8,9 +8,12 @@ const GalleryWrapper = styled.div``;
 
 export function Gallery({
     items,
+    sortOrder = 'asc',
     selectedId,
     returnToGalleryCallback,
     showItemNav = true,
+    usePaging = false,
+    itemsPerPage = 10,
 }: IGallery) {
     if (isEmpty(items)) {
         console.error('Pass in a populated array for the Gallery component');
@@ -22,6 +25,9 @@ export function Gallery({
         selectedId,
         returnToGalleryCallback,
         showItemNav,
+        sortOrder,
+        usePaging,
+        itemsPerPage,
     };
 
     return (

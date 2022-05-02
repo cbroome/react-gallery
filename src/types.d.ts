@@ -60,9 +60,13 @@ interface IItem {
 
 interface IGallery {
     items: IItem[];
+    sortOrder: 'asc' | 'desc';
     selectedId?: string;
     returnToGalleryCallback?: function;
     showItemNav: boolean;
+    usePaging: boolean;
+    itemsPerPage?: number;
+    changePageCallback?: function;
 }
 
 type TypeReactOnClick = undefined | ((event: React.MouseEvent) => void);
