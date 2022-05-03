@@ -22,11 +22,8 @@ const PagedList = styled.ul`
 `;
 
 export function PageNav() {
-    const {
-        totalPages,
-        setCurrentPage,
-        currentPage,
-    } = GalleryState.useContainer();
+    const { totalPages, setCurrentPage, currentPage } =
+        GalleryState.useContainer();
 
     const pageList = [];
 
@@ -52,7 +49,7 @@ export function PageNav() {
     }
     return (
         <>
-            {totalPages && (
+            {totalPages > 1 && (
                 <PagedList className="rg-paged-list">{pageList}</PagedList>
             )}
         </>

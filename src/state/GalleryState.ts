@@ -54,9 +54,10 @@ export function useGallery(
     const [displayedItems, setDisplayedItems] = useState<IItem[]>([]);
     const [totalPages, setTotalPages] = useState(0);
 
-    const sortedItems = useMemo(() => orderBy(items, ['order'], [sortOrder]), [
-        items,
-    ]);
+    const sortedItems = useMemo(
+        () => orderBy(items, ['order'], [sortOrder]),
+        [items]
+    );
 
     useMemo(() => {
         if (activeItem) {
@@ -115,6 +116,7 @@ export function useGallery(
         setCurrentPage,
         totalPages,
         currentPage,
+        usePaging,
     };
 }
 

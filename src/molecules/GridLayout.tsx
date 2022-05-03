@@ -30,11 +30,8 @@ const GridCell = styled.div`
 `;
 
 export function GridLayout({ items }: IGridLayout) {
-    const {
-        activeItem,
-        setActiveItem,
-        displayedItems,
-    } = GalleryState.useContainer();
+    const { activeItem, setActiveItem, displayedItems, usePaging } =
+        GalleryState.useContainer();
 
     const selectItemFunc = (item: IItem) => {
         return () => {
@@ -51,7 +48,7 @@ export function GridLayout({ items }: IGridLayout) {
             )}
             {!activeItem && (
                 <>
-                    <PageNav />
+                    {usePaging && <PageNav />}
 
                     <Grid className="rg-grid">
                         {displayedItems?.map((item, index) => {
