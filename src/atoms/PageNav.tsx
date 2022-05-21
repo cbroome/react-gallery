@@ -34,19 +34,48 @@ export function PageNav() {
     };
 
     // Only render if there's more than one page
-    for (let i = 1; i <= totalPages; i++) {
-        const isCurrentPage = i === currentPage;
-        pageList.push(
-            <PagedLink
-                key={`page-link-${i}`}
-                className="rg-paged-link"
-                onClick={selectPage(i)}
-                isCurrentPage={isCurrentPage}
-            >
-                {i}
-            </PagedLink>
-        );
+    if (totalPages > 1) {
+        for (let i = 1; i <= totalPages; i++) {
+            const isCurrentPage = i === currentPage;
+            pageList.push(
+                <PagedLink
+                    key={`page-link-${i}`}
+                    className="rg-paged-link"
+                    onClick={selectPage(i)}
+                    isCurrentPage={isCurrentPage}
+                >
+                    {i}
+                </PagedLink>
+            );
+        }
+
+        if (currentPage > 1) {
+            pageList.unshift(
+                <PagedLink
+                    key={`page-link-first`}
+                    className="rg-paged-link rg-first-page-link"
+                    onClick={selectPage(1)}
+                    isCurrentPage={false}
+                >
+                    &lt;
+                </PagedLink>
+            );
+        }
+
+        if (currentPage < totalPages) {
+            pageList.push(
+                <PagedLink
+                    key={`page-link-last`}
+                    className="rg-paged-link rg-last-page-link"
+                    onClick={selectPage(totalPages)}
+                    isCurrentPage={false}
+                >
+                    &gt;
+                </PagedLink>
+            );
+        }
     }
+
     return (
         <>
             {totalPages > 1 && (

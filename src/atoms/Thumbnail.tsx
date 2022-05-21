@@ -1,14 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { IThumbnail } from '../types';
 import { Image } from './Image';
-
-interface IThumbnail {
-    url: string;
-    height: number;
-    width: number;
-    altText?: string;
-    onClick?: Function;
-}
 
 interface IThumbnailWrapper {
     height?: number;

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { isEmpty } from 'lodash';
 import { GridLayout } from '../molecules';
 import { GalleryState } from '../state/GalleryState';
+import { IGallery } from '../types';
 
 const GalleryWrapper = styled.div``;
 

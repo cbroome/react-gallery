@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { OverlayNavView } from './OverlayNavView';
 import { Header1, Image, Video } from '../atoms';
 import { GalleryState } from '../state';
+import { IItemImage, IItemVideo } from '../types';
 
 const PreviewItem = styled.div`
     img {
@@ -23,14 +24,25 @@ export function Preview() {
     const { activeItem, showItemNav } = GalleryState.useContainer();
     let url: string = '';
     let target: string = '_self';
-    if (activeItem?.allowDirectLink) {
-        url = activeItem.externalLink || activeItem.resourceUrl;
-        // Open images in a new window
-        target = '_blank';
+    let actualPreview: ReactNode;
+    if (activeItem!!.type === 'image') {
+        const imageItem = activeItem!! as IItemImage;
+        if (imageItem?.allowDirectLink) {
+            url = imageItem.externalLink || imageItem?.resourceUrl;
+            // Open images in a new window
+            target = '_blank';
+        }
+        actualPreview = <Image url={url} />;
+    } else {
+        const videoItem = activeItem!! as IItemVideo;
+        actualPreview = (
+            <Video
+                sources={videoItem!!.sources}
+                autoplay={videoItem.autoplay || false}
+                controls={videoItem.controls || true}
+            />
+        );
     }
-
-    const actualPreview =
-        activeItem!!.type === 'image' ? <Image url={url} /> : <Video />;
 
     const preview = (
         <PreviewItem className="rg-preview-item">

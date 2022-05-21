@@ -1,4 +1,16 @@
-interface IItem {
+import { ReactNode } from 'react';
+
+export type FreeformField = string | ReactNode;
+
+export interface IThumbnail {
+    url: string;
+    height: number;
+    width: number;
+    altText?: string;
+    onClick?: Function;
+}
+
+export interface IItem {
     /**
      * unique string for Item id
      */
@@ -27,7 +39,7 @@ interface IItem {
     /**
      * description for display along with the highlighted Item
      */
-    description?: string;
+    description?: FreeformField;
 
     /**
      * whether the Item links to the original file
@@ -35,11 +47,6 @@ interface IItem {
     allowDirectLink?: boolean;
 
     type: 'image' | 'video';
-
-    /**
-     * The url of the Item
-     */
-    resourceUrl: string;
 
     /**
      * Will be displayed alongside a highlighted Item
@@ -58,15 +65,42 @@ interface IItem {
     callback?: Function;
 }
 
-interface IGallery {
-    items: IItem[];
+export type TVideoType =
+    | 'video/webm'
+    | 'video/mp4'
+    | 'video/avi'
+    | 'video/quicktime';
+
+export interface IVideoSource {
+    src: string;
+    type: TVideoType;
+}
+
+export interface IItemImage extends IItem {
+    /**
+     * The url of the Item
+     */
+    resourceUrl: string;
+}
+
+export interface IItemVideo extends IItem {
+    controls?: boolean;
+    autoplay?: boolean;
+    sources: IVideoSource[];
+    width: string | number;
+}
+
+export type TItemUnioned = IItemImage | IItemVideo;
+
+export interface IGallery {
+    items: TItemUnioned[];
     sortOrder: 'asc' | 'desc';
     selectedId?: string;
-    returnToGalleryCallback?: function;
+    returnToGalleryCallback?: Function;
     showItemNav: boolean;
     usePaging: boolean;
     itemsPerPage?: number;
-    changePageCallback?: function;
+    changePageCallback?: Function;
 }
 
-type TypeReactOnClick = undefined | ((event: React.MouseEvent) => void);
+export type TypeReactOnClick = undefined | ((event: React.MouseEvent) => void);

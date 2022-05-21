@@ -1,9 +1,10 @@
-import { orderBy, sortBy } from 'lodash';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { orderBy } from 'lodash';
+import { useCallback, useMemo, useState } from 'react';
 import { createContainer } from 'unstated-next';
+import { IItem, IItemImage, IItemVideo, TypeReactOnClick } from '../types';
 
 interface IGalleryStateProps {
-    items?: IItem[];
+    items?: TGalleryItem[];
     selectedId?: string;
     returnToGalleryCallback?: Function;
     showItemNav: boolean;
@@ -11,6 +12,8 @@ interface IGalleryStateProps {
     usePaging: boolean;
     sortOrder: 'asc' | 'desc';
 }
+
+type TGalleryItem = IItemImage | IItemVideo | undefined;
 
 /**
  * Maintain the currently selected items
@@ -37,21 +40,19 @@ export function useGallery(
         usePaging,
     } = initialState;
 
-    let selectedItem: IItem | undefined;
+    let selectedItem: TGalleryItem;
     if (selectedId) {
-        selectedItem = items?.filter((item) => item.id === selectedId)[0];
+        selectedItem = items?.filter((item) => item?.id === selectedId)[0];
     }
 
-    const [activeItem, setActiveItem] = useState<IItem | undefined>(
-        selectedItem
-    );
-    const [nextItem, setNextItem] = useState<IItem | undefined>();
-    const [prevItem, setPrevItem] = useState<IItem | undefined>();
+    const [activeItem, setActiveItem] = useState<TGalleryItem>(selectedItem);
+    const [nextItem, setNextItem] = useState<TGalleryItem>();
+    const [prevItem, setPrevItem] = useState<TGalleryItem>();
     const clearActiveItem = () => {
         setActiveItem(undefined);
     };
     const [currentPage, setCurrentPage] = useState(1);
-    const [displayedItems, setDisplayedItems] = useState<IItem[]>([]);
+    const [displayedItems, setDisplayedItems] = useState<TGalleryItem[]>([]);
     const [totalPages, setTotalPages] = useState(0);
 
     const sortedItems = useMemo(
@@ -75,7 +76,7 @@ export function useGallery(
     }, [activeItem, sortedItems]);
 
     useMemo(() => {
-        let currentItems: IItem[] = [];
+        let currentItems: TGalleryItem[] = [];
         if (usePaging) {
             const itemsLength = sortedItems.length || 0;
             const totalPages = Math.ceil(itemsLength / itemsPerPage);
@@ -89,7 +90,7 @@ export function useGallery(
         setDisplayedItems(currentItems);
     }, [currentPage, sortedItems, itemsPerPage, usePaging]);
 
-    const onClickHandler = (item: IItem): TypeReactOnClick => {
+    const onClickHandler = (item: TGalleryItem): TypeReactOnClick => {
         return () => {
             setActiveItem(item);
         };

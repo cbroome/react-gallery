@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import { Preview } from './Preview';
 import { CloseableView } from './CloseableView';
 import { GalleryState } from '../state';
+import { TItemUnioned } from '../types';
 
 interface IGridLayout {
-    items: IItem[];
+    items: TItemUnioned[];
 }
 
 const Grid = styled.div`
@@ -29,11 +30,15 @@ const GridCell = styled.div`
     }
 `;
 
+const Title = styled.div`
+    font-size: 1.2em;
+`;
+
 export function GridLayout({ items }: IGridLayout) {
     const { activeItem, setActiveItem, displayedItems, usePaging } =
         GalleryState.useContainer();
 
-    const selectItemFunc = (item: IItem) => {
+    const selectItemFunc = (item: TItemUnioned) => {
         return () => {
             setActiveItem(item);
         };
@@ -52,19 +57,21 @@ export function GridLayout({ items }: IGridLayout) {
 
                     <Grid className="rg-grid">
                         {displayedItems?.map((item, index) => {
-                            const url = item.thumbnail?.url || '';
+                            const url = item?.thumbnail?.url || '';
                             return (
                                 <GridCell
                                     key={`grid-cell-${index}`}
-                                    title={item.title}
+                                    title={item?.title}
                                     className="rg-grid-cell"
                                 >
                                     <Thumbnail
                                         url={url}
-                                        height={150}
-                                        width={150}
-                                        onClick={selectItemFunc(item)}
+                                        height={200}
+                                        width={200}
+                                        onClick={selectItemFunc(item!!)}
                                     />
+
+                                    {item?.title && <Title>{item.title}</Title>}
                                 </GridCell>
                             );
                         })}
