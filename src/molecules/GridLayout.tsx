@@ -17,7 +17,6 @@ const Grid = styled.div`
 `;
 
 const GridCell = styled.div`
-    height: 250px;
     width: 200px;
     border: 1px solid;
     border-radius: 3px;
@@ -30,13 +29,23 @@ const GridCell = styled.div`
     }
 `;
 
+const ThumbnailWrapper = styled.div`
+    height: 250px;
+`;
+
 const Title = styled.div`
-    font-size: 1.2em;
+    margin: 5px 0;
+    text-align: center;
+    text-overflow: ellipsis;
 `;
 
 export function GridLayout({ items }: IGridLayout) {
-    const { activeItem, setActiveItem, displayedItems, usePaging } =
-        GalleryState.useContainer();
+    const {
+        activeItem,
+        setActiveItem,
+        displayedItems,
+        usePaging,
+    } = GalleryState.useContainer();
 
     const selectItemFunc = (item: TItemUnioned) => {
         return () => {
@@ -55,7 +64,7 @@ export function GridLayout({ items }: IGridLayout) {
                 <>
                     {usePaging && <PageNav />}
 
-                    <Grid className="rg-grid">
+                    <Grid className="rg-grid" aria-label="gallery grid">
                         {displayedItems?.map((item, index) => {
                             const url = item?.thumbnail?.url || '';
                             return (
@@ -63,15 +72,18 @@ export function GridLayout({ items }: IGridLayout) {
                                     key={`grid-cell-${index}`}
                                     title={item?.title}
                                     className="rg-grid-cell"
+                                    onClick={selectItemFunc(item!!)}
+                                    aria-label={item?.title}
                                 >
-                                    <Thumbnail
-                                        url={url}
-                                        height={200}
-                                        width={200}
-                                        onClick={selectItemFunc(item!!)}
-                                    />
+                                    <ThumbnailWrapper>
+                                        <Thumbnail url={url} />
+                                    </ThumbnailWrapper>
 
-                                    {item?.title && <Title>{item.title}</Title>}
+                                    {item?.title && (
+                                        <Title className="rg-title">
+                                            {item.title}
+                                        </Title>
+                                    )}
                                 </GridCell>
                             );
                         })}

@@ -4,8 +4,8 @@ export type FreeformField = string | ReactNode;
 
 export interface IThumbnail {
     url: string;
-    height: number;
-    width: number;
+    height?: number;
+    width?: number;
     altText?: string;
     onClick?: Function;
 }

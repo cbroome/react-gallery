@@ -21,9 +21,14 @@ const PagedList = styled.ul`
     display: flex;
 `;
 
+export const pageNavAriaLabel = 'gallery page nav bar';
+
 export function PageNav() {
-    const { totalPages, setCurrentPage, currentPage } =
-        GalleryState.useContainer();
+    const {
+        totalPages,
+        setCurrentPage,
+        currentPage,
+    } = GalleryState.useContainer();
 
     const pageList = [];
 
@@ -79,7 +84,12 @@ export function PageNav() {
     return (
         <>
             {totalPages > 1 && (
-                <PagedList className="rg-paged-list">{pageList}</PagedList>
+                <PagedList
+                    className="rg-paged-list"
+                    aria-label={pageNavAriaLabel}
+                >
+                    {pageList}
+                </PagedList>
             )}
         </>
     );

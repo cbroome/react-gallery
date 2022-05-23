@@ -24,7 +24,7 @@ export function Preview() {
     const { activeItem, showItemNav } = GalleryState.useContainer();
     let url: string = '';
     let target: string = '_self';
-    let actualPreview: ReactNode;
+    let preview: ReactNode;
     if (activeItem!!.type === 'image') {
         const imageItem = activeItem!! as IItemImage;
         if (imageItem?.allowDirectLink) {
@@ -32,25 +32,27 @@ export function Preview() {
             // Open images in a new window
             target = '_blank';
         }
-        actualPreview = <Image url={url} />;
+
+        preview = (
+            <PreviewItem className="rg-preview-item">
+                <a href={url} target={target}>
+                    <Image url={url} />
+                </a>
+            </PreviewItem>
+        );
     } else {
         const videoItem = activeItem!! as IItemVideo;
-        actualPreview = (
-            <Video
-                sources={videoItem!!.sources}
-                autoplay={videoItem.autoplay || false}
-                controls={videoItem.controls || true}
-            />
+
+        preview = (
+            <PreviewItem className="rg-preview-item">
+                <Video
+                    sources={videoItem!!.sources}
+                    autoplay={videoItem.autoplay || false}
+                    controls={videoItem.controls || true}
+                />
+            </PreviewItem>
         );
     }
-
-    const preview = (
-        <PreviewItem className="rg-preview-item">
-            <a href={url} target={target}>
-                {actualPreview}
-            </a>
-        </PreviewItem>
-    );
 
     return (
         <div className="rg-preview">
