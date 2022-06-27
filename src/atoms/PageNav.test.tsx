@@ -10,7 +10,7 @@ describe('<PageNav>', function () {
             <>
                 <GalleryState.Provider
                     initialState={{
-                        items: [{} as IItemImage, {} as IItemImage],
+                        galleryItems: [{} as IItemImage, {} as IItemImage],
                         sortOrder: 'asc',
                         showItemNav: true,
                         usePaging: true,
@@ -30,7 +30,7 @@ describe('<PageNav>', function () {
             <>
                 <GalleryState.Provider
                     initialState={{
-                        items: [{} as IItemImage, {} as IItemImage],
+                        galleryItems: [{} as IItemImage, {} as IItemImage],
                         sortOrder: 'asc',
                         showItemNav: true,
                         usePaging: true,

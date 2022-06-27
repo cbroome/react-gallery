@@ -1,10 +1,10 @@
-import { orderBy } from 'lodash';
-import { useCallback, useMemo, useState } from 'react';
+import _, { orderBy } from 'lodash';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { createContainer } from 'unstated-next';
-import { IItem, IItemImage, IItemVideo, TypeReactOnClick } from '../types';
+import { TGalleryItem, TypeReactOnClick } from '../types';
 
 interface IGalleryStateProps {
-    items?: TGalleryItem[];
+    galleryItems?: TGalleryItem[];
     selectedId?: string;
     returnToGalleryCallback?: Function;
     showItemNav: boolean;
@@ -12,8 +12,6 @@ interface IGalleryStateProps {
     usePaging: boolean;
     sortOrder: 'asc' | 'desc';
 }
-
-type TGalleryItem = IItemImage | IItemVideo | undefined;
 
 /**
  * Maintain the currently selected items
@@ -31,7 +29,7 @@ export function useGallery(
 ) {
     // TODO - support logic for having an initial selected Item
     const {
-        items,
+        galleryItems,
         selectedId,
         returnToGalleryCallback,
         showItemNav,
@@ -40,12 +38,21 @@ export function useGallery(
         usePaging,
     } = initialState;
 
-    let selectedItem: TGalleryItem;
-    if (selectedId) {
-        selectedItem = items?.filter((item) => item?.id === selectedId)[0];
-    }
+    const [items, setItems] = useState(galleryItems);
+    const [activeItem, setActiveItem] = useState<TGalleryItem>();
 
-    const [activeItem, setActiveItem] = useState<TGalleryItem>(selectedItem);
+    useEffect(() => {
+        setItems(galleryItems);
+    }, [galleryItems]);
+
+    useEffect(() => {
+        let activeItem;
+        if (selectedId) {
+            activeItem = items?.filter((item) => item?.id === selectedId)[0];
+        }
+        setActiveItem(activeItem);
+    }, [selectedId, items]);
+
     const [nextItem, setNextItem] = useState<TGalleryItem>();
     const [prevItem, setPrevItem] = useState<TGalleryItem>();
     const clearActiveItem = () => {
@@ -68,10 +75,6 @@ export function useGallery(
 
             setNextItem(nextItem);
             setPrevItem(prevItem);
-
-            if (activeItem.callback) {
-                activeItem.callback(activeItem);
-            }
         }
     }, [activeItem, sortedItems]);
 

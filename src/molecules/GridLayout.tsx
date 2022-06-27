@@ -40,16 +40,19 @@ const Title = styled.div`
 `;
 
 export function GridLayout({ items }: IGridLayout) {
-    const {
-        activeItem,
-        setActiveItem,
-        displayedItems,
-        usePaging,
-    } = GalleryState.useContainer();
+    const { activeItem, setActiveItem, displayedItems, usePaging } =
+        GalleryState.useContainer();
 
     const selectItemFunc = (item: TItemUnioned) => {
         return () => {
-            setActiveItem(item);
+            let shouldContinue = true;
+            // Allow the callback to prevent selection
+            if (item.callback) {
+                shouldContinue = item.callback(item);
+            }
+            if (shouldContinue !== false) {
+                setActiveItem(item);
+            }
         };
     };
 

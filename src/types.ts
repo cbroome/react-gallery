@@ -60,7 +60,8 @@ export interface IItem {
 
     /**
      * Called when an item is highlighted. It will also be called if the gallery
-     * is initialized with a selectedId
+     * is initialized with a selectedId. Return [false] to prevent normal
+     * gallery behavior.
      */
     callback?: Function;
 }
@@ -69,7 +70,8 @@ export type TVideoType =
     | 'video/webm'
     | 'video/mp4'
     | 'video/avi'
-    | 'video/quicktime';
+    | 'video/quicktime'
+    | 'video/ogg';
 
 export interface IVideoSource {
     src: string;
@@ -94,7 +96,7 @@ export type TItemUnioned = IItemImage | IItemVideo;
 
 export interface IGallery {
     items: TItemUnioned[];
-    sortOrder: 'asc' | 'desc';
+    sortOrder: TSortOrder;
     selectedId?: string;
     returnToGalleryCallback?: Function;
     showItemNav: boolean;
@@ -104,3 +106,7 @@ export interface IGallery {
 }
 
 export type TypeReactOnClick = undefined | ((event: React.MouseEvent) => void);
+
+export type TGalleryItem = IItemImage | IItemVideo | undefined;
+
+export type TSortOrder = 'asc' | 'desc';
