@@ -32,8 +32,7 @@ export function CloseableView({
         <div className="rg-closeable-view">
             <Return
                 onClick={() => {
-                    // By clearing out the active item, the main
-                    // gallery should render
+                    console.log('clicked Return to Gallery');
                     returnToGallery();
                 }}
             >

@@ -25,10 +25,6 @@ export function Gallery({
     const [providedSelectedId, setProvidedSelectedId] = useState<
         string | undefined
     >(selectedId);
-    const [
-        providedReturnToGalleryCallback,
-        setProvidedReturnToGalleryCallback,
-    ] = useState<Function | undefined>(returnToGalleryCallback);
     const [providedItemsPerPage, setProvidedItemsPerPage] =
         useState<number>(itemsPerPage);
     const [providedUsePaging, setProvidedUsePaging] =
@@ -41,7 +37,6 @@ export function Gallery({
     useEffect(() => {
         setProvidedItems(items);
         setProvidedSelectedId(selectedId);
-        setProvidedReturnToGalleryCallback(returnToGalleryCallback);
         setProvidedItemsPerPage(itemsPerPage);
         setProvidedUsePaging(usePaging);
         setProvidedSortOrder(sortOrder);
@@ -59,7 +54,7 @@ export function Gallery({
     const statePackage = {
         galleryItems: providedItems,
         selectedId: providedSelectedId,
-        returnToGalleryCallback: providedReturnToGalleryCallback,
+        returnToGalleryCallback: returnToGalleryCallback,
         showItemNav: providedShowItemNav,
         sortOrder: providedSortOrder,
         usePaging: providedUsePaging,

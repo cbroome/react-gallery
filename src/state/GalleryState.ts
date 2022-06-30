@@ -27,7 +27,6 @@ export function useGallery(
         usePaging: false,
     }
 ) {
-    // TODO - support logic for having an initial selected Item
     const {
         galleryItems,
         selectedId,
@@ -64,7 +63,7 @@ export function useGallery(
 
     const sortedItems = useMemo(
         () => orderBy(items, ['order'], [sortOrder]),
-        [items]
+        [items, sortOrder]
     );
 
     useMemo(() => {
@@ -100,11 +99,14 @@ export function useGallery(
     };
 
     const returnToGallery = useCallback(() => {
-        setActiveItem(undefined);
+        let earlyBreak;
         if (returnToGalleryCallback) {
-            returnToGalleryCallback();
+            earlyBreak = returnToGalleryCallback();
         }
-    }, [setActiveItem, returnToGalleryCallback]);
+        if (earlyBreak !== false) {
+            setActiveItem(undefined);
+        }
+    }, [returnToGalleryCallback, setActiveItem]);
 
     return {
         activeItem,
