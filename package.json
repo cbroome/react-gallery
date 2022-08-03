@@ -3,7 +3,7 @@
     "publishConfig": {
         "registry": "https://npm.pkg.github.com/cbroome"
     },
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Simple Gallery for React",
     "scripts": {
         "rollup": "rollup -c",
@@ -41,8 +41,17 @@
         "react-dom": "^18.1.0",
         "rollup": "^2.67.1",
         "rollup-plugin-dts": "^4.1.0",
+        "rollup-plugin-peer-deps-external": "^2.2.4",
+        "rollup-plugin-terser": "^7.0.2",
         "ts-jest": "^28.0.2",
         "typescript": "^4.5.5"
+    },
+    "peerDependencies": {
+        "react": "^18.1.0",
+        "styled-components": "^5.3.3",
+        "lodash": "^4.17.21",
+        "react-router": "^6.2.1",
+        "unstated-next": "^1.1.0"
     },
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
@@ -50,10 +59,5 @@
         "dist"
     ],
     "types": "dist/index.d.ts",
-    "dependencies": {
-        "lodash": "^4.17.21",
-        "react-router": "^6.2.1",
-        "styled-components": "^5.3.3",
-        "unstated-next": "^1.1.0"
-    }
+    "dependencies": {}
 }
