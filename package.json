@@ -1,8 +1,5 @@
 {
-    "name": "@cbroome/react-gallery",
-    "publishConfig": {
-        "registry": "https://npm.pkg.github.com/cbroome"
-    },
+    "name": "simple-react-gallery",
     "version": "0.3.0",
     "description": "Simple Gallery for React",
     "scripts": {
@@ -47,10 +44,10 @@
         "typescript": "^4.5.5"
     },
     "peerDependencies": {
-        "react": "^18.1.0",
-        "styled-components": "^5.3.3",
         "lodash": "^4.17.21",
+        "react": "^18.1.0",
         "react-router": "^6.2.1",
+        "styled-components": "^5.3.3",
         "unstated-next": "^1.1.0"
     },
     "main": "dist/cjs/index.js",
@@ -58,6 +55,5 @@
     "files": [
         "dist"
     ],
-    "types": "dist/index.d.ts",
-    "dependencies": {}
+    "types": "dist/index.d.ts"
 }
