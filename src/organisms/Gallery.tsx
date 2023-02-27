@@ -36,20 +36,22 @@ export function Gallery({
 
     useEffect(() => {
         setProvidedItems(items);
-        setProvidedSelectedId(selectedId);
         setProvidedItemsPerPage(itemsPerPage);
         setProvidedUsePaging(usePaging);
         setProvidedSortOrder(sortOrder);
         setProvidedShowItemNav(showItemNav);
     }, [
         items,
-        selectedId,
         returnToGalleryCallback,
         itemsPerPage,
         usePaging,
         sortOrder,
         showItemNav,
     ]);
+
+    useEffect(() => {
+        setProvidedSelectedId(selectedId);
+    }, [selectedId]);
 
     const statePackage = {
         galleryItems: providedItems,

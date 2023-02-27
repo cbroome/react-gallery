@@ -30,7 +30,7 @@ const GridCell = styled.div`
 `;
 
 const ThumbnailWrapper = styled.div`
-    height: 250px;
+    height: 400px;
 `;
 
 const Title = styled.div`
@@ -78,7 +78,7 @@ export function GridLayout({ items }: IGridLayout) {
                                     onClick={selectItemFunc(item!!)}
                                     aria-label={item?.title}
                                 >
-                                    <ThumbnailWrapper>
+                                    <ThumbnailWrapper className="rg-thumbnail-wrapper">
                                         <Thumbnail url={url} />
                                     </ThumbnailWrapper>
 
